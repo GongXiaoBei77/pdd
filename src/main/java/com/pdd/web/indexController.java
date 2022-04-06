@@ -80,31 +80,29 @@ public class indexController {
 		//创建工作单
 		HSSFSheet sheet = workbook.createSheet("市场活动");
 		HSSFRow titlerRow = sheet.createRow(0);
-		titlerRow.createCell(0).setCellValue("商品ID");
-		titlerRow.createCell(1).setCellValue("商品名");
-		titlerRow.createCell(2).setCellValue("导航图链接");
-		titlerRow.createCell(3).setCellValue("导航图日期");
-		titlerRow.createCell(4).setCellValue("详细图链接");
-		titlerRow.createCell(5).setCellValue("详细图日期");
-		titlerRow.createCell(6).setCellValue("商铺ID");
-		titlerRow.createCell(7).setCellValue("价格");
-		titlerRow.createCell(8).setCellValue("销量");
-		titlerRow.createCell(9).setCellValue("类别");
+		titlerRow.createCell(0).setCellValue("导航图链接");
+		titlerRow.createCell(1).setCellValue("导航图日期");
+		titlerRow.createCell(2).setCellValue("详细图链接");
+		titlerRow.createCell(3).setCellValue("详细图日期");
+		titlerRow.createCell(4).setCellValue("商铺链接");
+		titlerRow.createCell(5).setCellValue("商品链接");
+		titlerRow.createCell(6).setCellValue("价格");
+		titlerRow.createCell(7).setCellValue("销量");
+		titlerRow.createCell(8).setCellValue("类别");
 		List<Pdd> all = pddService.findAll();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int lastRow = 1;
 		for (Pdd pdd : all) {
 			titlerRow = sheet.createRow(lastRow);
-			titlerRow.createCell(0).setCellValue(String.valueOf(pdd.getGoodsId()));
-			titlerRow.createCell(1).setCellValue(pdd.getGoodsName());
-			titlerRow.createCell(2).setCellValue(pdd.getHdThumbUrl());
-			titlerRow.createCell(3).setCellValue(sdf.format(pdd.getHdThumbDate()));
-			titlerRow.createCell(4).setCellValue(pdd.getHdUrl());
-			titlerRow.createCell(5).setCellValue(sdf.format(pdd.getHdDate()));
-			titlerRow.createCell(6).setCellValue(String.valueOf(pdd.getMallId()));
-			titlerRow.createCell(7).setCellValue(pdd.getPriceInfo());
-			titlerRow.createCell(8).setCellValue(pdd.getSales());
-			titlerRow.createCell(9).setCellValue(pdd.getTypen());
+			titlerRow.createCell(0).setCellValue(pdd.getHdThumbUrl());
+			titlerRow.createCell(1).setCellValue(sdf.format(pdd.getHdThumbDate()));
+			titlerRow.createCell(2).setCellValue(pdd.getHdUrl());
+			titlerRow.createCell(3).setCellValue(sdf.format(pdd.getHdDate()));
+			titlerRow.createCell(4).setCellValue("https://mobile.yangkeduo.com/mall_page.html?mall_id="+ pdd.getMallId());
+			titlerRow.createCell(5).setCellValue("https://mobile.yangkeduo.com/goods.html?goods_id="+ pdd.getGoodsId());
+			titlerRow.createCell(6).setCellValue(pdd.getPriceInfo());
+			titlerRow.createCell(7).setCellValue(pdd.getSales());
+			titlerRow.createCell(8).setCellValue(pdd.getTypen());
 			lastRow++;
 		}
 		//保存到输出流
