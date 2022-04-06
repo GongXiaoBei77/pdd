@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>知维平台</title>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script>
+		// 删除功能
+		function del() {
+			const ids = [];
+			//循环所有选中的值
+			$('[type = checkbox]:checked').each(function (index, element) {
+				//追加到数组中
+				ids.push($(this).val());
+			});
+
+			//将数组元素连接起来转化为字符串
+			$.ajax({
+				url: "/remove",
+				type: "post",
+				dataType: "json",
+				traditional: true,
+				data: {
+					"ids": ids
+				},
+				success: (result) => {
+					location.reload();
+				}
+			})
+
+
+		}
+
+		// 检索功能
+		function select() {
+			$.ajax({
+				url: "/select",
+				type: "get",
+				dataType: "json",
+				data: {"typeN": $("#select-text").val()},
+				success: (result) => {
+					let html = '';
+					$(result.data).each((index, pdd) => {
+						html += `
+                    <div class="pdd-div" >
+                        <img class="pdd_img" alt="${pdd.goodsName}" src="${pdd.hdThumbUrl}">
+                        <img class="pdd_img" alt="${pdd.goodsName}" src="${pdd.hdUrl}">
+                         ${pdd.typen}
+                        <label>
+                            <input class="pdd_checkbox" value="${pdd.id}" type="checkbox">选择
+                        </label>
+                    </div>`
+					})
+					$("#pdd-app").html(html)
+					console.log("wc")
+				}
+			})
+		}
+
+		//下载功能
+        function download(){
+	        window.location.href="/download"
+        }
+    </script>
+</head>
+<body id="app">
+<div id="select">
+    <label id="select-label">搜索
+        <input id="select-text" type="text">
+        <button id="select-button" onclick="select()">检索</button>
+        <button id="download-button" onclick="download()">下载</button>
+    </label>
+</div>
+<button id="remove" onclick="del()">删除</button>
+<div id="pdd-app">
+    <div class="pdd-div" th:each="pdd:${pddList}">
+        <img class="pdd_img" th:alt="${pdd.getGoodsName()}" th:src="${pdd.getHdThumbUrl()}">
+        <img class="pdd_img" th:alt="${pdd.getGoodsName()}" th:src="${pdd.getHdUrl()}">
+        [[${pdd.getTypen()}]]
+        <label>
+            <input class="pdd_checkbox" th:value="${pdd.getId()}" type="checkbox">选择
+        </label>
+    </div>
+</div>
+</body>
+<style>
+    #select {
+        position: fixed;
+    }
+
+    #remove {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        right: 100px;
+        top: 50%;
+    }
+
+    .pdd_img {
+        width: 150px;
+    }
+
+    .pdd-div {
+        margin-left: 25%;
+        margin-right: 25%;
+        text-align: center;
+        border: 1px solid orange;
+    }
+
+    .pdd_checkbox {
+        width: 150px;
+        height: 150px;
+    }
+
+
+</style>
+</html>

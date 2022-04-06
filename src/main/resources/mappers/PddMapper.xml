@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pdd.mapper.PddMapper">
+    <resultMap id="BaseResultMap" type="com.pdd.model.Pdd">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="hd_thumb_url" jdbcType="VARCHAR" property="hdThumbUrl"/>
+        <result column="hd_thumb_date" jdbcType="DATE" property="hdThumbDate"/>
+        <result column="hd_url" jdbcType="VARCHAR" property="hdUrl"/>
+        <result column="hd_date" jdbcType="DATE" property="hdDate"/>
+        <result column="mall_id" jdbcType="BIGINT" property="mallId"/>
+        <result column="price_info" jdbcType="DOUBLE" property="priceInfo"/>
+        <result column="sales" jdbcType="INTEGER" property="sales"/>
+        <result column="typeN" jdbcType="VARCHAR" property="typen"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, goods_id, goods_name, hd_thumb_url, hd_thumb_date, hd_url, hd_date, mall_id,
+    price_info, sales, typeN
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pdd_img
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from pdd_img
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pdd.model.Pdd">
+        insert into pdd_img (id, goods_id, goods_name,
+                             hd_thumb_url, hd_thumb_date, hd_url,
+                             hd_date, mall_id, price_info,
+                             sales, typeN)
+        values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR},
+                #{hdThumbUrl,jdbcType=VARCHAR}, #{hdThumbDate,jdbcType=DATE}, #{hdUrl,jdbcType=VARCHAR},
+                #{hdDate,jdbcType=DATE}, #{mallId,jdbcType=BIGINT}, #{priceInfo,jdbcType=DOUBLE},
+                #{sales,jdbcType=INTEGER}, #{typen,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.pdd.model.Pdd">
+        insert into pdd_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="hdThumbUrl != null">
+                hd_thumb_url,
+            </if>
+            <if test="hdThumbDate != null">
+                hd_thumb_date,
+            </if>
+            <if test="hdUrl != null">
+                hd_url,
+            </if>
+            <if test="hdDate != null">
+                hd_date,
+            </if>
+            <if test="mallId != null">
+                mall_id,
+            </if>
+            <if test="priceInfo != null">
+                price_info,
+            </if>
+            <if test="sales != null">
+                sales,
+            </if>
+            <if test="typen != null">
+                typeN,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="hdThumbUrl != null">
+                #{hdThumbUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hdThumbDate != null">
+                #{hdThumbDate,jdbcType=DATE},
+            </if>
+            <if test="hdUrl != null">
+                #{hdUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hdDate != null">
+                #{hdDate,jdbcType=DATE},
+            </if>
+            <if test="mallId != null">
+                #{mallId,jdbcType=BIGINT},
+            </if>
+            <if test="priceInfo != null">
+                #{priceInfo,jdbcType=DOUBLE},
+            </if>
+            <if test="sales != null">
+                #{sales,jdbcType=INTEGER},
+            </if>
+            <if test="typen != null">
+                #{typen,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pdd.model.Pdd">
+        update pdd_img
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="hdThumbUrl != null">
+                hd_thumb_url = #{hdThumbUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hdThumbDate != null">
+                hd_thumb_date = #{hdThumbDate,jdbcType=DATE},
+            </if>
+            <if test="hdUrl != null">
+                hd_url = #{hdUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hdDate != null">
+                hd_date = #{hdDate,jdbcType=DATE},
+            </if>
+            <if test="mallId != null">
+                mall_id = #{mallId,jdbcType=BIGINT},
+            </if>
+            <if test="priceInfo != null">
+                price_info = #{priceInfo,jdbcType=DOUBLE},
+            </if>
+            <if test="sales != null">
+                sales = #{sales,jdbcType=INTEGER},
+            </if>
+            <if test="typen != null">
+                typeN = #{typen,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pdd.model.Pdd">
+        update pdd_img
+        set goods_id      = #{goodsId,jdbcType=BIGINT},
+            goods_name    = #{goodsName,jdbcType=VARCHAR},
+            hd_thumb_url  = #{hdThumbUrl,jdbcType=VARCHAR},
+            hd_thumb_date = #{hdThumbDate,jdbcType=DATE},
+            hd_url        = #{hdUrl,jdbcType=VARCHAR},
+            hd_date       = #{hdDate,jdbcType=DATE},
+            mall_id       = #{mallId,jdbcType=BIGINT},
+            price_info    = #{priceInfo,jdbcType=DOUBLE},
+            sales         = #{sales,jdbcType=INTEGER},
+            typeN         = #{typen,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--  selectByAll-->
+    <select id="selectByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pdd_img
+    </select>
+    <!--  selectByTypeN-->
+    <select id="selectByTypeN" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from pdd_img
+        <where>
+            <if test='_parameter!=null'>
+                and typen like concat("%",#{typeN,jdbcType=VARCHAR},"%")
+            </if>
+        </where>
+    </select>
+</mapper>
