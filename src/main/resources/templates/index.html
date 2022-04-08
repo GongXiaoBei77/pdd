@@ -4,44 +4,54 @@
     <meta charset="UTF-8">
     <title>知维平台</title>
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-    <script>
-		// 删除功能
-		function del() {
-			const ids = [];
-			//循环所有选中的值
-			$('[type = checkbox]:checked').each(function (index, element) {
-				//追加到数组中
-				ids.push($(this).val());
-			});
+    <script>function truncate() {
+        $.ajax({
+        	url: "/truncate",
+        	type: "get",
+        	dataType: "json",
+        	success: (result) => {
+		        location.reload();
+        	}
+        })
+	}
 
-			//将数组元素连接起来转化为字符串
-			$.ajax({
-				url: "/remove",
-				type: "post",
-				dataType: "json",
-				traditional: true,
-				data: {
-					"ids": ids
-				},
-				success: (result) => {
-					location.reload();
-				}
-			})
+	// 删除功能
+	function del() {
+		const ids = [];
+		//循环所有选中的值
+		$('[type = checkbox]:checked').each(function (index, element) {
+			//追加到数组中
+			ids.push($(this).val());
+		});
+
+		//将数组元素连接起来转化为字符串
+		$.ajax({
+			url: "/remove",
+			type: "post",
+			dataType: "json",
+			traditional: true,
+			data: {
+				"ids": ids
+			},
+			success: (result) => {
+				location.reload();
+			}
+		})
 
 
-		}
+	}
 
-		// 检索功能
-		function select() {
-			$.ajax({
-				url: "/select",
-				type: "get",
-				dataType: "json",
-				data: {"typeN": $("#select-text").val()},
-				success: (result) => {
-					let html = '';
-					$(result.data).each((index, pdd) => {
-						html += `
+	// 检索功能
+	function select() {
+		$.ajax({
+			url: "/select",
+			type: "get",
+			dataType: "json",
+			data: {"typeN": $("#select-text").val()},
+			success: (result) => {
+				let html = '';
+				$(result.data).each((index, pdd) => {
+					html += `
                     <div class="pdd-div" >
                         <img class="pdd_img" alt="${pdd.goodsName}" src="${pdd.hdThumbUrl}">
                         <img class="pdd_img" alt="${pdd.goodsName}" src="${pdd.hdUrl}">
@@ -50,17 +60,17 @@
                             <input class="pdd_checkbox" value="${pdd.id}" type="checkbox">选择
                         </label>
                     </div>`
-					})
-					$("#pdd-app").html(html)
-					console.log("wc")
-				}
-			})
-		}
+				})
+				$("#pdd-app").html(html)
+				console.log("wc")
+			}
+		})
+	}
 
-		//下载功能
-        function download(){
-	        window.location.href="/download"
-        }
+	//下载功能
+	function download() {
+		window.location.href = "/download"
+	}
     </script>
 </head>
 <body id="app">
@@ -69,6 +79,7 @@
         <input id="select-text" type="text">
         <button id="select-button" onclick="select()">检索</button>
         <button id="download-button" onclick="download()">下载</button>
+        <button id="truncate-button" onclick="truncate()">清空数据库</button>
     </label>
 </div>
 <button id="remove" onclick="del()">删除</button>

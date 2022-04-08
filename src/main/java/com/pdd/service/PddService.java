@@ -13,4 +13,6 @@ public interface PddService {
 	int removeById(int[] ids);
 	
 	List<Pdd> findByTypeN(String typeN);
+	
+	void truncate();
 }

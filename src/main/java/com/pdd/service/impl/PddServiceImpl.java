@@ -34,4 +34,9 @@ public class PddServiceImpl implements PddService {
 	public List<Pdd> findByTypeN(String typeN) {
 		return pddMapper.selectByTypeN(typeN);
 	}
+	
+	@Override
+	public void truncate() {
+		pddMapper.truncate();
+	}
 }

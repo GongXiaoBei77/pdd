@@ -20,4 +20,6 @@ public interface PddMapper {
 	List<Pdd> selectByAll();
     
     List<Pdd> selectByTypeN(String typeN);
+    
+    void truncate();
 }

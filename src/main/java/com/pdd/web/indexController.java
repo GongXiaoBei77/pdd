@@ -64,6 +64,16 @@ public class indexController {
 		return result;
 	}
 	
+	@GetMapping("/truncate")
+	@ResponseBody
+	public ResponseResult truncate(Model model){
+		ResponseResult result = new ResponseResult();
+		pddService.truncate();
+		result.setCode(2000);
+		result.setMsg("删除成功");
+		return result;
+	}
+	
 	@RequestMapping("/download")
 	public void downloadPoster(HttpServletRequest req, HttpServletResponse resp)
 			throws
