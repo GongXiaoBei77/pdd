@@ -12,9 +12,10 @@ class PddApplicationTests {
 	private PddService pddService;
 	@Test
 	void contextLoads() {
-		for (Pdd pdd : pddService.findByTypeN("裤子")) {
+		for (Pdd pdd : pddService.findByTypeN("1")) {
 			System.out.println(pdd);
 		}
+		System.out.println(pddService.findByTypeN("1").size());
 		
 		
 	}

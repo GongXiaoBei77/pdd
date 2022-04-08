@@ -167,17 +167,20 @@
         select
         <include refid="Base_Column_List"/>
         from pdd_img
+        group by hd_thumb_url,hd_url
     </select>
     <!--  selectByTypeN-->
     <select id="selectByTypeN" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from pdd_img
+
         <where>
             <if test='_parameter!=null'>
                 and typen like concat("%",#{typeN,jdbcType=VARCHAR},"%")
             </if>
         </where>
+        group by hd_thumb_url,hd_url
     </select>
     <update id="truncate">
         truncate table pdd_img
